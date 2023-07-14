@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>带指示器的轮播图</title>
+  <style>
+    .slideshow-container {
+      position: relative;
+      width: 400px;
+      height: 300px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    
+    .slideshow-container img {
+      width: 100%;
+      height: auto;
+    }
+    
+    .slideshow-container .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    
+    .slideshow-container .slide.active {
+      opacity: 1;
+    }
+    
+    .slideshow-indicators {
+      text-align: center;
+      margin-top: 10px;
+    }
+    
+    .slideshow-indicators span {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #bbb;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+    
+    .slideshow-indicators span.active {
+      background-color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="slideshow-container">
+    <img src="image1.jpg" class="slide active">
+    <img src="image2.jpg" class="slide">
+    <img src="image3.jpg" class="slide">
+  </div>
+
+  <div class="slideshow-indicators">
+    <span class="indicator active" onclick="showSlide(0)"></span>
+    <span class="indicator" onclick="showSlide(1)"></span>
+    <span class="indicator" onclick="showSlide(2)"></span>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const indicators = document.querySelectorAll('.indicator');
+    let currentSlide = 0;
+
+    function showSlide(n) {
+      slides[currentSlide].classList.remove('active');
+      indicators[currentSlide].classList.remove('active');
+      currentSlide = (n + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+      indicators[currentSlide].classList.add('active');
+    }
+
+    setInterval(() => {
+      showSlide(currentSlide + 1);
+    }, 2000);
+  </script>
+</body>
+</html>
