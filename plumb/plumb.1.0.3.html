@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="wrapper" id="wrapper">
+        <div class="menu" id="menu">
+            <div class="createDot" id="draggableDot" draggable="true">
+                <img id="plus" src="./icon/plus.svg" alt="" srcset="" onclick="edit_Newdot()">
+                添加节点
+            </div>
+        </div>
+        <div id="plumbArea" class="plumbArea">
+        </div>
+        <div id="form_newDot">
+            <input id="newDot_name" type="text" placeholder="请输入节点名称">
+            <button onclick="plusDot()">confirm</button>
+        </div>
+    </div>
+    <script>
+        let drag = { value: false }
+        const menu = document.getElementById('menu');
+        const form_newDot = document.getElementById('form_newDot');
+        const newDot_name = document.getElementById('newDot_name');
+        const out = document.getElementById('wrapper');
+        const plumbArea = document.getElementById('plumbArea')
+        let n = 0;
+        let newNode = null;
+        function create_Newdot(dot_name) {
+            return `${dot_name}`
+        }
+        function edit_Newdot() {
+            form_newDot.style.display = 'block'
+        }
+        function plusDot() {
+            const dot_name = create_Newdot(newDot_name.value);
+            form_newDot.style.display = 'none'
+            newNode = document.createElement('div')
+            newNode.classList.add("plumb_dot");
+            newNode.id = n+1;
+            newNode.innerHTML = dot_name;
+            newNode.draggable = true;
+            menu.appendChild(newNode);
+            drag.value = true;
+            newDot_name.value = null;
+        }
+    </script>
+    <script src="./mutation.js"></script>
+    <!-- <script src="./defineProperty.js"></script> -->
+</body>
+<style>
+    .wrapper {
+        display: flex;
+        width: 600px;
+        height: 600px;
+        border: 1px solid gray;
+    }
+
+    #form_newDot {
+        width: 200px;
+        height: 200px;
+        border: 1px solid gray;
+        display: none;
+        position: fixed;
+        left: 150px;
+        top: 150px;
+    }
+
+    .menu {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 200px;
+        height: 100%;
+        border-right: 1px solid gray;
+    }
+
+    .createDot {
+        width: 60%;
+        height: 30px;
+        line-height: 30px;
+        margin-top: 20px;
+        border: solid 1px gray;
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+    }
+
+    #plus {
+        width: 20px;
+        height: 20px;
+        margin: 0 5px 0 5px;
+        cursor: pointer;
+    }
+
+    .plumbArea {
+        display: flex;
+        width: 400px;
+        height: 100%;
+    }
+
+    .plumb_dot {
+        width: 120px;
+        height: 30px;
+        line-height: 30px;
+        margin-top: 20px;
+        border: solid 1px gray;
+        align-items: center;
+    }
+</style>
+
+</html>
